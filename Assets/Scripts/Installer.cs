@@ -24,6 +24,9 @@ public class Installer : MonoInstaller
     [SerializeField]
     private ParticleManager particleManager;
 
+    [SerializeField]
+    private RenderTrail renderTrail;
+
     public override void InstallBindings()
     {
         Container.Bind<ObjectPooler>().FromInstance(objectPooler).AsSingle().NonLazy();
@@ -39,5 +42,7 @@ public class Installer : MonoInstaller
         Container.Bind<ScoreSpawner>().FromInstance(scoreSpawner).AsSingle().NonLazy();
 
         Container.Bind<ParticleManager>().FromInstance(particleManager).AsSingle().NonLazy();
+
+        Container.Bind<RenderTrail>().FromInstance(renderTrail).AsSingle().NonLazy();
     }
 }

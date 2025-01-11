@@ -8,8 +8,6 @@ public class ParticleManager : MonoBehaviour
 
     private ParticleSystem system;
 
-    private float time;
-
     private void Awake()
     {
         system = GetComponent<ParticleSystem>();
@@ -23,6 +21,8 @@ public class ParticleManager : MonoBehaviour
 
     private IEnumerator ParticleBehaviourCoroutine()
     {
+        float time = 0;
+
         while (time < 3f)
         {
             Vector3 position = transform.position;
@@ -31,5 +31,7 @@ public class ParticleManager : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
+
+        gameObject.SetActive(false);
     }
 }
