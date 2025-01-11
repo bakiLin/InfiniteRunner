@@ -15,6 +15,9 @@ public class PlayerCollision : MonoBehaviour
     [Inject]
     private ParticleManager particleManager;
 
+    [Inject]
+    private RenderTrail renderTrail;
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("enemy"))
@@ -23,6 +26,7 @@ public class PlayerCollision : MonoBehaviour
             playerInputScript.StopInput();
             passedEnemyCounter.StopCount();
             spawnManager.StopSpawn();
+            renderTrail.TrailBehaviour();
             gameObject.SetActive(false);
         }
     }

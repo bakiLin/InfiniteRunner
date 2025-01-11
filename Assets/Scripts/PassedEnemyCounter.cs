@@ -20,12 +20,14 @@ public class PassedEnemyCounter : MonoBehaviour
         {
             score++;
 
-            if (enemySpawner.GetSpawnTime() > 0.4f)
+            if (enemySpawner.GetSpawnTime() > 0.3f)
                 enemySpawner.SetSpawnTime(enemySpawner.GetSpawnTime() - 0.02f);
 
             enemySpeed.SetNewSpeed(enemySpeed.GetSpeed() + 0.3f);
 
             scoreSpawner.ShowScore("score", score.ToString());
+
+            Debug.Log(enemySpawner.GetSpawnTime() + " - " + enemySpeed.GetSpeed());
         }
     }
 
