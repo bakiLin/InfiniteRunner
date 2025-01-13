@@ -27,6 +27,9 @@ public class Installer : MonoInstaller
     [SerializeField]
     private RenderTrail renderTrail;
 
+    [SerializeField]
+    private GameButtonManager gameButtonManager;
+
     public override void InstallBindings()
     {
         Container.Bind<ObjectPooler>().FromInstance(objectPooler).AsSingle().NonLazy();
@@ -44,5 +47,7 @@ public class Installer : MonoInstaller
         Container.Bind<ParticleManager>().FromInstance(particleManager).AsSingle().NonLazy();
 
         Container.Bind<RenderTrail>().FromInstance(renderTrail).AsSingle().NonLazy();
+
+        Container.Bind<GameButtonManager>().FromInstance(gameButtonManager).AsSingle().NonLazy();
     }
 }

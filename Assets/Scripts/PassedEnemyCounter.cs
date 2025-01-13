@@ -26,8 +26,6 @@ public class PassedEnemyCounter : MonoBehaviour
             enemySpeed.SetNewSpeed(enemySpeed.GetSpeed() + 0.3f);
 
             scoreSpawner.ShowScore("score", score.ToString());
-
-            Debug.Log(enemySpawner.GetSpawnTime() + " - " + enemySpeed.GetSpeed());
         }
     }
 
