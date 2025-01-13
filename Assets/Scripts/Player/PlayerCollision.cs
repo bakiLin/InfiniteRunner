@@ -18,6 +18,9 @@ public class PlayerCollision : MonoBehaviour
     [Inject]
     private RenderTrail renderTrail;
 
+    [Inject]
+    private GameButtonManager gameButtonManager;
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("enemy"))
@@ -27,6 +30,7 @@ public class PlayerCollision : MonoBehaviour
             passedEnemyCounter.StopCount();
             spawnManager.StopSpawn();
             renderTrail.TrailBehaviour();
+            gameButtonManager.GameOver();
             gameObject.SetActive(false);
         }
     }
