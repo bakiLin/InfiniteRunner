@@ -15,7 +15,7 @@ public class EnemyMovement : MonoBehaviour
         moveToPosition.z = -25f;
 
         tween.Kill();
-        tween = transform.DOMove(moveToPosition, enemySpeed.GetSpeed())
+        tween = transform.DOMove(moveToPosition, enemySpeed.speed)
             .SetSpeedBased().SetEase(Ease.Linear);
     }
 }

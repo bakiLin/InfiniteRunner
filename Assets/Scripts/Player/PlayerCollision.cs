@@ -7,7 +7,7 @@ public class PlayerCollision : MonoBehaviour
     private PlayerInputScript playerInputScript;
 
     [Inject]
-    private PassedEnemyCounter passedEnemyCounter;
+    private EnemyCounter enemyCounter;
 
     [Inject]
     private EnemySpawner spawnManager;
@@ -19,17 +19,21 @@ public class PlayerCollision : MonoBehaviour
     private RenderTrail renderTrail;
 
     [Inject]
-    private GameButtonManager gameButtonManager;
+    private ButtonManager gameButtonManager;
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("enemy"))
         {
-            particleManager.ParticleBehaviour();
-            playerInputScript.StopInput();
-            passedEnemyCounter.StopCount();
+            playerInputScript.enabled = false;
+            particleManager.ParticlePlay();
+            renderTrail.MoveTrail();
+
+            enemyCounter.SetFinishResult();
+            Destroy(enemyCounter.gameObject);
+
+            enemyCounter.gameObject.SetActive(false);
             spawnManager.StopSpawn();
-            renderTrail.TrailBehaviour();
             gameButtonManager.GameOver();
             gameObject.SetActive(false);
         }

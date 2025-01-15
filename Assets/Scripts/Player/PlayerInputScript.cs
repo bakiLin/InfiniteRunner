@@ -7,8 +7,7 @@ public class PlayerInputScript : MonoBehaviour
 
     private PlayerMovement playerMovement;
 
-    private InputAction pressAction;
-    private InputAction positionAction;
+    private InputAction pressAction, positionAction;
 
     private float deltaX;
 
@@ -24,21 +23,17 @@ public class PlayerInputScript : MonoBehaviour
     private void Update()
     {
         if (pressAction.WasPressedThisFrame())
-        {
             deltaX = positionAction.ReadValue<Vector2>().x;
-        }
 
         if (pressAction.WasReleasedThisFrame())
         {
             deltaX -= positionAction.ReadValue<Vector2>().x;
 
-            if (deltaX > 200)
+            if (deltaX > 200f)
                 playerMovement.MoveLeft();
 
-            if (deltaX < -200)
+            if (deltaX < -200f)
                 playerMovement.MoveRight();
         }
     }
-
-    public void StopInput() => this.enabled = false;
 }

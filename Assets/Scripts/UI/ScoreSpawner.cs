@@ -1,15 +1,8 @@
 using TMPro;
 using UnityEngine;
-using Zenject;
-using Random = System.Random;
 
-public class ScoreSpawner : MonoBehaviour
+public class ScoreSpawner : SpawnParentScript
 {
-    [Inject]
-    private ObjectPooler objectPooler;
-
-    private Random random = new Random();
-
     public void ShowScore(string tag, string text)
     {
         if (objectPooler.poolDictionary.ContainsKey(tag))

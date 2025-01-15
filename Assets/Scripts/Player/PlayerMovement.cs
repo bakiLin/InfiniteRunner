@@ -4,6 +4,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
+    private float playerSpeed;
+
+    [SerializeField]
     private Transform[] playerPositions;
 
     private int currentRow = 1;
@@ -17,8 +20,9 @@ public class PlayerMovement : MonoBehaviour
             currentRow--;
 
             tween.Kill();
-            tween = transform.DOMove(playerPositions[currentRow].position, 10f)
-                .SetSpeedBased().SetEase(Ease.Linear);
+            tween = transform.DOMove(playerPositions[currentRow].position, playerSpeed)
+                .SetSpeedBased()
+                .SetEase(Ease.Linear);
         }
     }
 
@@ -29,8 +33,9 @@ public class PlayerMovement : MonoBehaviour
             currentRow++;
 
             tween.Kill();
-            tween = transform.DOMove(playerPositions[currentRow].position, 10f)
-                .SetSpeedBased().SetEase(Ease.Linear);
+            tween = transform.DOMove(playerPositions[currentRow].position, playerSpeed)
+                .SetSpeedBased()
+                .SetEase(Ease.Linear);
         }
     }
 }

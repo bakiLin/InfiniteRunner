@@ -1,24 +1,19 @@
 using System.Collections;
 using UnityEngine;
-using Zenject;
-using Random = System.Random;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : SpawnParentScript
 {
-    [Inject]
-    private ObjectPooler objectPooler;
-
     [SerializeField]
     private Transform[] enemyPositions;
 
-    [SerializeField]
-    private float spawnTime;
+    public float spawnDelay;
 
     private int currentSpawnLine, lastSpawnLine;
 
-    private Random random = new Random();
-
-    private void Start() => StartCoroutine(EnemySpawnCoroutine());
+    private void Awake()
+    {
+        StartCoroutine(EnemySpawnCoroutine());
+    }
 
     private IEnumerator EnemySpawnCoroutine()
     {
@@ -33,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
 
             SpawnEnemy("enemy", enemyPositions[currentSpawnLine].position);
 
-            yield return new WaitForSeconds(spawnTime);
+            yield return new WaitForSeconds(spawnDelay);
         }
     }
 
@@ -50,8 +45,4 @@ public class EnemySpawner : MonoBehaviour
     }
 
     public void StopSpawn() => StopAllCoroutines();
-
-    public float GetSpawnTime() => spawnTime;
-
-    public void SetSpawnTime(float time) => spawnTime = time;
 }
