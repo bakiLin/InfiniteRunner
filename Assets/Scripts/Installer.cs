@@ -7,7 +7,7 @@ public class Installer : MonoInstaller
     private ObjectPooler objectPooler;
 
     [SerializeField]
-    private PassedEnemyCounter passedEnemyCounter;
+    private EnemyCounter enemyCounter;
 
     [SerializeField]
     private EnemySpeed enemySpeed;
@@ -28,13 +28,22 @@ public class Installer : MonoInstaller
     private RenderTrail renderTrail;
 
     [SerializeField]
-    private GameButtonManager gameButtonManager;
+    private ButtonManager buttonManager;
+
+    [SerializeField]
+    private FadingManager fadingManager;
+
+    [SerializeField]
+    private IconsManager iconsManager;
+
+    [SerializeField]
+    private AudioManager audioManager;
 
     public override void InstallBindings()
     {
         Container.Bind<ObjectPooler>().FromInstance(objectPooler).AsSingle().NonLazy();
 
-        Container.Bind<PassedEnemyCounter>().FromInstance(passedEnemyCounter).AsSingle().NonLazy();
+        Container.Bind<EnemyCounter>().FromInstance(enemyCounter).AsSingle().NonLazy();
 
         Container.Bind<EnemySpeed>().FromInstance(enemySpeed).AsSingle().NonLazy();
 
@@ -48,6 +57,12 @@ public class Installer : MonoInstaller
 
         Container.Bind<RenderTrail>().FromInstance(renderTrail).AsSingle().NonLazy();
 
-        Container.Bind<GameButtonManager>().FromInstance(gameButtonManager).AsSingle().NonLazy();
+        Container.Bind<ButtonManager>().FromInstance(buttonManager).AsSingle().NonLazy();
+
+        Container.Bind<FadingManager>().FromInstance(fadingManager).AsSingle().NonLazy();
+
+        Container.Bind<IconsManager>().FromInstance(iconsManager).AsSingle().NonLazy();
+
+        Container.Bind<AudioManager>().FromInstance(audioManager).AsSingle().NonLazy();
     }
 }

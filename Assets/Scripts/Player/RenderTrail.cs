@@ -1,4 +1,4 @@
-using System.Collections;
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,18 +28,6 @@ public class RenderTrail : MonoBehaviour
         line.SetPositions(points.ToArray());
     }
 
-    private void AddPoint(Vector3 position)
-    {
-        points.Insert(1, position);
-        spawnTimes.Enqueue(Time.time);
-    }
-
-    private void RemovePoint()
-    {
-        spawnTimes.Dequeue();
-        points.RemoveAt(points.Count - 1);
-    }
-
     private void Update()
     {
         while (spawnTimes.Count > 0 && spawnTimes.Peek() + lifetime < Time.time)
@@ -59,21 +47,25 @@ public class RenderTrail : MonoBehaviour
         line.SetPositions(points.ToArray());
     }
 
-    public void TrailBehaviour() => StartCoroutine(TrailBehaviourCoroutine());
-
-    private IEnumerator TrailBehaviourCoroutine()
+    private void AddPoint(Vector3 position)
     {
-        float time = 0;
+        points.Insert(1, position);
+        spawnTimes.Enqueue(Time.time);
+    }
 
-        while (time < 3f)
-        {
-            Vector3 position = transform.position;
-            position.z -= Time.deltaTime * 10f;
-            transform.position = position;
-            time += Time.deltaTime;
-            yield return null;
-        }
+    private void RemovePoint()
+    {
+        spawnTimes.Dequeue();
+        points.RemoveAt(points.Count - 1);
+    }
 
-        gameObject.SetActive(false);
+    public void MoveTrail()
+    {
+        transform.DOMoveZ(-20f, 10f)
+            .SetSpeedBased()
+            .SetEase(Ease.Linear)
+            .OnComplete(() => {
+                gameObject.SetActive(false);
+            });
     }
 }

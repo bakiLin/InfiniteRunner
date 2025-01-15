@@ -1,5 +1,5 @@
-using System.Collections;
 using UnityEngine;
+using DG.Tweening;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -8,28 +8,14 @@ public class ScoreManager : MonoBehaviour
 
     private Transform rectTransform;
 
-    private Vector3 localPosition;
+    private void Awake() => rectTransform = GetComponent<RectTransform>();
 
     private void OnEnable()
     {
-        if (rectTransform == null)
-            rectTransform = GetComponent<RectTransform>();
-        else
-            StartCoroutine(UpMovement());
+        float movePositionY = rectTransform.position.y + 200f;
+        rectTransform.DOMoveY(movePositionY, 1.5f)
+            .OnComplete(() => { 
+                gameObject.SetActive(false); 
+            });
     }
-
-    private IEnumerator UpMovement()
-    {
-        while (true)
-        {
-            localPosition = rectTransform.localPosition;
-            localPosition.y += Time.deltaTime * moveSpeed;
-            rectTransform.localPosition = localPosition;
-            yield return null;
-        }
-    }
-
-    private void OnDisable() => StopAllCoroutines();
-
-    public void DisableSelf() => gameObject.SetActive(false);
 }
