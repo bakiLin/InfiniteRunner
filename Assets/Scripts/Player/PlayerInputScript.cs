@@ -2,10 +2,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInputScript : MonoBehaviour
-{   
-    private PlayerInput playerInput;
-
+{
     private PlayerMovement playerMovement;
+
+    private MobileInputActions mobileInputActions;
+
+    private KeyboardInputAction keyboardInputAction;
 
     private InputAction pressAction, positionAction;
 
@@ -13,27 +15,48 @@ public class PlayerInputScript : MonoBehaviour
 
     private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
         playerMovement = GetComponent<PlayerMovement>();
 
-        pressAction = playerInput.actions.FindAction("Press");
-        positionAction = playerInput.actions.FindAction("Position");
+        mobileInputActions = new MobileInputActions();
+        keyboardInputAction = new KeyboardInputAction();
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        if (pressAction.WasPressedThisFrame())
-            deltaX = positionAction.ReadValue<Vector2>().x;
+        mobileInputActions.Enable();
+        keyboardInputAction.Enable();
 
-        if (pressAction.WasReleasedThisFrame())
-        {
-            deltaX -= positionAction.ReadValue<Vector2>().x;
+        pressAction = mobileInputActions.Player.Press;
+        positionAction = mobileInputActions.Player.Position;
 
-            if (deltaX > 200f)
-                playerMovement.MoveLeft();
+        pressAction.started += SavePosition;
+        pressAction.canceled += CalcPosition;
 
-            if (deltaX < -200f)
-                playerMovement.MoveRight();
-        }
+        keyboardInputAction.Player.Movement.started += Movement;
+    }
+
+    private void Movement(InputAction.CallbackContext context)
+    {
+        if (context.ReadValue<float>() == -1) playerMovement.MoveLeft();
+        else playerMovement.MoveRight();
+    }
+
+    private void SavePosition(InputAction.CallbackContext context)
+    {
+        deltaX = positionAction.ReadValue<Vector2>().x;
+    }
+
+    private void CalcPosition(InputAction.CallbackContext context)
+    {
+        deltaX -= positionAction.ReadValue<Vector2>().x;
+
+        if (deltaX > 200f) playerMovement.MoveLeft();
+        if (deltaX < -200f) playerMovement.MoveRight();
+    }
+
+    private void OnDisable()
+    {
+        mobileInputActions.Disable();
+        keyboardInputAction.Disable();
     }
 }
