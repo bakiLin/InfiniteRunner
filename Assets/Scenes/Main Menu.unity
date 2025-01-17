@@ -740,7 +740,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48fdc9b37b0bce645938bf72f7c851c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundButtonImage: {fileID: 0}
   sounds:
   - name: Click
     clip: {fileID: 8300000, guid: f8b856c0c30c0334aa0484acf61c4efb, type: 3}
@@ -838,52 +837,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 524652713}
   m_CullTransparentMesh: 1
---- !u!1 &540651051
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 540651053}
-  - component: {fileID: 540651052}
-  m_Layer: 0
-  m_Name: UI Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &540651052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 540651051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b778d438a03281c4da774c5de7e5f902, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundOn: {fileID: 573179491, guid: aa11b5a362af3574e9fecf31db070332, type: 3}
-  soundOff: {fileID: 547161457, guid: 17d9e0dda7762ee41a6faa26080b5ce0, type: 3}
---- !u!4 &540651053
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 540651051}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1064946601
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,8 +1173,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 359323590}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 5
+        m_MethodName: ClickSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1428,8 +1381,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 359323590}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 5
+        m_MethodName: ClickSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1495,5 +1448,4 @@ SceneRoots:
   - {fileID: 241267091}
   - {fileID: 186698150}
   - {fileID: 175373231}
-  - {fileID: 540651053}
   - {fileID: 359323591}

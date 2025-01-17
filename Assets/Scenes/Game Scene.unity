@@ -333,7 +333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48fdc9b37b0bce645938bf72f7c851c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundButtonImage: {fileID: 2074548512}
   sounds:
   - name: Theme
     clip: {fileID: 8300000, guid: 214c11ab0fa82ca4089f4087d858faf4, type: 3}
@@ -665,8 +664,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 187741172}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 5
+        m_MethodName: ClickSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1160,6 +1159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseButton: {fileID: 215157275}
+  audioButtonImage: {fileID: 2074548512}
   pauseWindow: {fileID: 288762424}
   gameOverCanvasGroup: {fileID: 1210536105}
 --- !u!1 &516712456
@@ -1592,8 +1592,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 187741172}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 5
+        m_MethodName: ClickSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2778,8 +2778,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 187741172}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 5
+        m_MethodName: ClickSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3674,10 +3674,10 @@ MonoBehaviour:
       - m_Target: {fileID: 458233723}
         m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
         m_MethodName: SoundButton
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 2074548511}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3685,8 +3685,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 187741172}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 5
+        m_MethodName: ClickSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3829,8 +3829,8 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 187741172}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlaySound
-        m_Mode: 5
+        m_MethodName: ClickSound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3925,7 +3925,7 @@ MonoBehaviour:
   - {fileID: 1313862061}
   - {fileID: 708918808}
   - {fileID: 1633823665}
-  spawnDelay: 2.7
+  spawnDelay: 2
 --- !u!199 &5562725063570874378
 ParticleSystemRenderer:
   serializedVersion: 6

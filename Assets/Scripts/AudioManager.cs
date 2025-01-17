@@ -1,7 +1,7 @@
 using DG.Tweening;
 using System;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 public class AudioManager : MonoBehaviour
@@ -26,10 +26,7 @@ public class AudioManager : MonoBehaviour
     }
 
     [Inject]
-    private IconsManager iconsManager;
-
-    [SerializeField]
-    private Image soundButtonImage;
+    private ButtonManager buttonManager;
 
     [SerializeField]
     private Sound[] sounds;
@@ -46,64 +43,47 @@ public class AudioManager : MonoBehaviour
             sound.audioSource.pitch = sound.pitch;
             sound.audioSource.loop = sound.loop;
         }
-    }
 
-    private void Start()
-    {
-        if (PlayerPrefs.HasKey("soundOn"))
+        if (SceneManager.GetActiveScene().buildIndex.Equals(0))
+            PlayerPrefs.SetInt("soundOn", 1);
+        else
         {
-            if (PlayerPrefs.GetInt("soundOn") == 1)
-                PlaySound("Theme");
+            if (PlayerPrefs.GetInt("soundOn").Equals(1))
+                TriggerSound("Theme", true);
             else
-                soundButtonImage.sprite = iconsManager.soundOn;
+                buttonManager.SetSoundIcon(true);
         }
     }
 
-    public void PlaySound(string name)
-    {
-        Sound sound = Array.Find(sounds, s => s.name == name);
-
-        if (sound != null) 
-            sound.audioSource.Play();
-    }
-
-    public void PauseSound(string name, bool isPaused)
+    public void TriggerSound(string name, bool play)
     {
         Sound sound = Array.Find(sounds, s => s.name == name);
 
         if (sound != null)
         {
-            if (!isPaused)
+            if (play)
             {
-                tween.Kill();
-                tween = sound.audioSource.DOFade(.1f, .1f).SetUpdate(true);
+                sound.audioSource.Play();
+                PlayerPrefs.SetInt("soundOn", 1);
             }
             else
             {
-                tween.Kill();
-                tween = sound.audioSource.DOFade(.5f, .1f).SetUpdate(true);
+                sound.audioSource.Stop();
+                PlayerPrefs.SetInt("soundOn", 0);
             }
         }
     }
-    
-    public void StopSound(string name)
-    {
-        Sound sound = Array.Find(sounds, s => s.name == name);
 
-        if (sound != null)
-            sound.audioSource.Stop();
-
-        PlayerPrefs.SetInt("soundOn", 0);
-    } 
-
-    public void FadeSoundToZero(string name)
+    public void FadeSound(string name, float endValue, float duration)
     {
         Sound sound = Array.Find(sounds, s => s.name == name);
 
         if (sound != null)
         {
             tween.Kill();
-            tween = sound.audioSource.DOFade(0f, 1f).SetUpdate(true);
+            tween = sound.audioSource.DOFade(endValue, duration).SetUpdate(true);
         }
     }
+
+    public void ClickSound() => Array.Find(sounds, s => s.name == "Click").audioSource.Play();
 }
