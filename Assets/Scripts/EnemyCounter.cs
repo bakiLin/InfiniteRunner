@@ -14,7 +14,7 @@ public class EnemyCounter : MonoBehaviour
     private ScoreSpawner scoreSpawner;
 
     [SerializeField]
-    private TextMeshProUGUI finalScore;
+    private TextMeshProUGUI currentScore, bestScore;
 
     private int score;
 
@@ -36,15 +36,10 @@ public class EnemyCounter : MonoBehaviour
 
     public void SetFinishResult()
     {
-        if (PlayerPrefs.HasKey("bestScore"))
-        {
-            if (PlayerPrefs.GetInt("bestScore") < score)
-                PlayerPrefs.SetInt("bestScore", score);
-        }
-        else
+        if (score > PlayerPrefs.GetInt("bestScore"))
             PlayerPrefs.SetInt("bestScore", score);
 
-        string finalResult = $"–екорд: {PlayerPrefs.GetInt("bestScore")}\n—чЄт: {score}";
-        finalScore.text = finalResult;
+        currentScore.text = $"—чЄт: {score}";
+        bestScore.text = $"–екорд: {PlayerPrefs.GetInt("bestScore")}";
     }
 }

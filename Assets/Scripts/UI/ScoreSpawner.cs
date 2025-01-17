@@ -10,8 +10,8 @@ public class ScoreSpawner : SpawnParentScript
             GameObject obj = objectPooler.poolDictionary[tag].Dequeue();
 
             RectTransform rectTransform = obj.GetComponent<RectTransform>();
-            int x = random.Next(-800, 800);
-            int y = random.Next(-900, 500);
+            int x = random.Next(-250, 250);
+            int y = random.Next(-250, 100);
             rectTransform.anchoredPosition = new Vector2(x, y);
 
             TextMeshProUGUI textMeshProUGUI = obj.GetComponent<TextMeshProUGUI>();

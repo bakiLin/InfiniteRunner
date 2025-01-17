@@ -12,7 +12,7 @@ public class ScoreManager : MonoBehaviour
 
     private void OnEnable()
     {
-        float movePositionY = rectTransform.position.y + 200f;
+        float movePositionY = rectTransform.position.y + (Screen.height / 10);
         rectTransform.DOMoveY(movePositionY, 1.5f)
             .OnComplete(() => { 
                 gameObject.SetActive(false); 
