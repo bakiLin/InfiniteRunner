@@ -28,10 +28,8 @@ public class PlayerCollision : MonoBehaviour
             playerInputScript.enabled = false;
             particleManager.ParticlePlay();
             renderTrail.MoveTrail();
-
             enemyCounter.SetFinishResult();
             Destroy(enemyCounter.gameObject);
-
             enemyCounter.gameObject.SetActive(false);
             spawnManager.StopSpawn();
             gameButtonManager.GameOver();

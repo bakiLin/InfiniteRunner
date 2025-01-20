@@ -1,5 +1,7 @@
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using YG;
 using Zenject;
 
 public class EnemyCounter : MonoBehaviour
@@ -14,7 +16,7 @@ public class EnemyCounter : MonoBehaviour
     private ScoreSpawner scoreSpawner;
 
     [SerializeField]
-    private TextMeshProUGUI currentScore, bestScore;
+    private TextMeshProUGUI currentScoreText, bestScoreText;
 
     private int score;
 
@@ -24,7 +26,7 @@ public class EnemyCounter : MonoBehaviour
         {
             score++;
 
-            if (enemySpawner.spawnDelay > 0.45f)
+            if (enemySpawner.spawnDelay > 0.4f)
                 enemySpawner.spawnDelay -= 0.02f;
 
             if (score > 100) enemySpeed.speed += 0.1f;
@@ -36,10 +38,41 @@ public class EnemyCounter : MonoBehaviour
 
     public void SetFinishResult()
     {
-        if (score > PlayerPrefs.GetInt("bestScore"))
-            PlayerPrefs.SetInt("bestScore", score);
+        if (score > YandexGame.savesData.score)
+        {
+            YandexGame.savesData.score = score;
+            YandexGame.NewLeaderboardScores("score", score);
+        }
 
-        currentScore.text = $"—чЄт: {score}";
-        bestScore.text = $"–екорд: {PlayerPrefs.GetInt("bestScore")}";
+        GetData();
     }
+
+    private void OnEnable()
+    {
+        YandexGame.GetDataEvent += GetData;
+    }
+
+    private void OnDisable()
+    {
+        YandexGame.GetDataEvent -= GetData;
+    }
+
+    private async void GetData()
+    {
+        while (!YandexGame.SDKEnabled)
+            await Task.Delay(200);
+
+        if (YandexGame.EnvironmentData.language == "ru")
+        {
+            currentScoreText.text = $"—чЄт: {score}";
+            bestScoreText.text = $"–екорд: {YandexGame.savesData.score}";
+        }
+        else
+        {
+            currentScoreText.text = $"Score: {score}";
+            bestScoreText.text = $"Highscore: {YandexGame.savesData.score}";
+        }
+    }
+
+
 }
