@@ -18,6 +18,9 @@ public class ButtonManager : MonoBehaviour
     private Button pauseButton;
 
     [SerializeField]
+    private Image audioButtonImage;
+
+    [SerializeField]
     private GameObject pauseWindow;
 
     [SerializeField]
@@ -32,39 +35,37 @@ public class ButtonManager : MonoBehaviour
             Time.timeScale = 0f;
             pauseWindow.SetActive(true);
             pauseButton.GetComponent<Image>().sprite = iconsManager.play;
-            audioManager.PauseSound("Theme", false);
+            audioManager.FadeSound("Theme", 0.1f, 0.1f);
         }
         else
         {
             Time.timeScale = 1f;
             pauseWindow.SetActive(false);
             pauseButton.GetComponent<Image>().sprite = iconsManager.pause;
-            audioManager.PauseSound("Theme", true);
+            audioManager.FadeSound("Theme", 0.5f, 0.1f);
         }
 
         paused = !paused;
     }
 
-    public void SoundButton(Button button)
+    public void SoundButton()
     {
-        Image buttonImage = button.GetComponent<Image>(); 
-
-        if (buttonImage.sprite.Equals(iconsManager.soundOn))
+        if (PlayerPrefs.GetInt("soundOn") == 0)
         {
-            audioManager.PlaySound("Theme");
-            button.GetComponent<Image>().sprite = iconsManager.soundOff;
+            audioManager.TriggerSound("Theme", true);
+            SetSoundIcon(false);
         }
         else
         {
-            audioManager.StopSound("Theme");
-            button.GetComponent<Image>().sprite = iconsManager.soundOn;
+            audioManager.TriggerSound("Theme", false);
+            SetSoundIcon(true);
         }
     }
 
     public void LoadLevel(int sceneIndex)
     {
         fadingManager.LoadLevel(sceneIndex);
-        audioManager.FadeSoundToZero("Theme");
+        audioManager.FadeSound("Theme", 0f, 1f);
     }
 
     public void GameOver()
@@ -74,4 +75,6 @@ public class ButtonManager : MonoBehaviour
         gameOverCanvasGroup.gameObject.SetActive(true);
         gameOverCanvasGroup.DOFade(1f, 1f);
     }
+
+    public void SetSoundIcon(bool soundOn) => audioButtonImage.sprite = soundOn ? iconsManager.soundOn : iconsManager.soundOff;
 }
