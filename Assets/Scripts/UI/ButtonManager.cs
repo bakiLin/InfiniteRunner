@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 using Zenject;
 
 public class ButtonManager : MonoBehaviour
