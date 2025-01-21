@@ -16,7 +16,10 @@ public class EnemyCounter : MonoBehaviour
     private ScoreSpawner scoreSpawner;
 
     [SerializeField]
-    private TextMeshProUGUI currentScoreText, bestScoreText;
+    private TextMeshProUGUI currentScore, bestScore;
+
+    [SerializeField]
+    private RectTransform gameOverWindow;
 
     private int score;
 
@@ -36,26 +39,38 @@ public class EnemyCounter : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        if (YandexGame.auth)
+        {
+            bestScore.transform.parent.gameObject.SetActive(true);
+            gameOverWindow.sizeDelta = new Vector2(gameOverWindow.sizeDelta.x, 400f);
+        }
+        else
+        {
+            bestScore.transform.parent.gameObject.SetActive(false);
+            gameOverWindow.sizeDelta = new Vector2(gameOverWindow.sizeDelta.x, 300f);
+        }
+    }
+
     public void SetFinishResult()
     {
-        if (score > YandexGame.savesData.score)
+        if (YandexGame.auth)
         {
-            YandexGame.savesData.score = score;
-            YandexGame.NewLeaderboardScores("score", score);
+            if (score > YandexGame.savesData.score)
+            {
+                YandexGame.savesData.score = score;
+                YandexGame.SaveProgress();
+                YandexGame.NewLeaderboardScores("score", score);
+            }
         }
 
         GetData();
     }
 
-    private void OnEnable()
-    {
-        YandexGame.GetDataEvent += GetData;
-    }
+    private void OnEnable() => YandexGame.GetDataEvent += GetData;
 
-    private void OnDisable()
-    {
-        YandexGame.GetDataEvent -= GetData;
-    }
+    private void OnDisable() => YandexGame.GetDataEvent -= GetData;
 
     private async void GetData()
     {
@@ -64,15 +79,13 @@ public class EnemyCounter : MonoBehaviour
 
         if (YandexGame.EnvironmentData.language == "ru")
         {
-            currentScoreText.text = $"—чЄт: {score}";
-            bestScoreText.text = $"–екорд: {YandexGame.savesData.score}";
+            currentScore.text = $"—чЄт: {score}";
+            bestScore.text = $"–екорд: {YandexGame.savesData.score}";
         }
         else
         {
-            currentScoreText.text = $"Score: {score}";
-            bestScoreText.text = $"Highscore: {YandexGame.savesData.score}";
+            currentScore.text = $"Score: {score}";
+            bestScore.text = $"Highscore: {YandexGame.savesData.score}";
         }
     }
-
-
 }
