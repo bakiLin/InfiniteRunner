@@ -12,9 +12,6 @@ public class ButtonManager : MonoBehaviour
     [Inject]
     private IconsManager iconsManager;
 
-    [Inject]
-    private AudioManager audioManager;
-
     [SerializeField]
     private Button pauseButton;
 
@@ -27,7 +24,19 @@ public class ButtonManager : MonoBehaviour
     [SerializeField]
     private CanvasGroup gameOverCanvasGroup;
 
+    private AudioManager audioManager;
+
     private bool paused;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindFirstObjectByType<AudioManager>();
+
+        if (PlayerPrefs.GetInt("soundOn") == 0)
+            SetSoundIcon(true);
+        else if (!YandexGame.nowFullAd)
+            audioManager.TriggerSound("Theme", true);
+    }
 
     public void Pause()
     {
@@ -77,5 +86,8 @@ public class ButtonManager : MonoBehaviour
         gameOverCanvasGroup.DOFade(1f, 1f);
     }
 
-    public void SetSoundIcon(bool soundOn) => audioButtonImage.sprite = soundOn ? iconsManager.soundOn : iconsManager.soundOff;
+    public void SetSoundIcon(bool soundOn)
+    {
+        audioButtonImage.sprite = soundOn ? iconsManager.soundOn : iconsManager.soundOff;
+    }
 }

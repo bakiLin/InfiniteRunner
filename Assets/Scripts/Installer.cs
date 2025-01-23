@@ -36,9 +36,6 @@ public class Installer : MonoInstaller
     [SerializeField]
     private IconsManager iconsManager;
 
-    [SerializeField]
-    private AudioManager audioManager;
-
     public override void InstallBindings()
     {
         Container.Bind<ObjectPooler>().FromInstance(objectPooler).AsSingle().NonLazy();
@@ -62,7 +59,5 @@ public class Installer : MonoInstaller
         Container.Bind<FadingManager>().FromInstance(fadingManager).AsSingle().NonLazy();
 
         Container.Bind<IconsManager>().FromInstance(iconsManager).AsSingle().NonLazy();
-
-        Container.Bind<AudioManager>().FromInstance(audioManager).AsSingle().NonLazy();
     }
 }

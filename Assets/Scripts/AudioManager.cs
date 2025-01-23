@@ -1,8 +1,6 @@
 using DG.Tweening;
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Zenject;
 
 public class AudioManager : MonoBehaviour
 {
@@ -25,16 +23,22 @@ public class AudioManager : MonoBehaviour
         public AudioSource audioSource;
     }
 
-    [Inject]
-    private ButtonManager buttonManager;
-
     [SerializeField]
     private Sound[] sounds;
+
+    private static AudioManager Instance;
 
     private Tween tween;
 
     private void Awake()
     {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+
+        PlayerPrefs.SetInt("soundOn", 1);
+
         foreach (Sound sound in sounds)
         {
             sound.audioSource = gameObject.AddComponent<AudioSource>();
@@ -42,16 +46,6 @@ public class AudioManager : MonoBehaviour
             sound.audioSource.volume = sound.volume;
             sound.audioSource.pitch = sound.pitch;
             sound.audioSource.loop = sound.loop;
-        }
-
-        if (SceneManager.GetActiveScene().buildIndex.Equals(0))
-            PlayerPrefs.SetInt("soundOn", 1);
-        else
-        {
-            if (PlayerPrefs.GetInt("soundOn").Equals(1))
-                TriggerSound("Theme", true);
-            else
-                buttonManager.SetSoundIcon(true);
         }
     }
 
@@ -63,6 +57,7 @@ public class AudioManager : MonoBehaviour
         {
             if (play)
             {
+                sound.audioSource.volume = 0.5f;
                 sound.audioSource.Play();
                 PlayerPrefs.SetInt("soundOn", 1);
             }
@@ -85,5 +80,13 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void ClickSound() => Array.Find(sounds, s => s.name == "Click").audioSource.Play();
+    public void ClickSound()
+    {
+        Array.Find(sounds, s => s.name == "Click").audioSource.Play();
+    }
+
+    public void PlayTheme()
+    {
+        TriggerSound("Theme", true);
+    }
 }

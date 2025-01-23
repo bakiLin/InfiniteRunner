@@ -2,6 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using YG;
 
 public class FadingManager : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class FadingManager : MonoBehaviour
 
     private void Awake()
     {
+        if (YandexGame.nowFullAd)
+        {
+            Time.timeScale = 0f;
+        }
+
         fadeImage.DOFade(0f, 2f).OnComplete(() => {
             safeAreaCanvasGroup.interactable = true;
         });
@@ -20,6 +26,8 @@ public class FadingManager : MonoBehaviour
 
     public void LoadLevel(int sceneIndex)
     {
+        YandexGame.FullscreenShow();
+
         safeAreaCanvasGroup.interactable = false;
 
         fadeImage.DOFade(1f, 1.5f)
