@@ -13,16 +13,13 @@ public class ButtonManager : MonoBehaviour
     private IconsManager iconsManager;
 
     [SerializeField]
-    private Button pauseButton;
+    private Image pauseButtonImage, audioButtonImage;
 
     [SerializeField]
-    private Image audioButtonImage;
+    private CanvasGroup gameOver;
 
     [SerializeField]
     private GameObject pauseWindow;
-
-    [SerializeField]
-    private CanvasGroup gameOverCanvasGroup;
 
     private AudioManager audioManager;
 
@@ -33,26 +30,26 @@ public class ButtonManager : MonoBehaviour
         audioManager = GameObject.FindFirstObjectByType<AudioManager>();
 
         if (PlayerPrefs.GetInt("soundOn") == 0)
-            SetSoundIcon(true);
+            audioButtonImage.sprite = iconsManager.soundOn;
         else if (!YandexGame.nowFullAd)
-            audioManager.TriggerSound("Theme", true);
+            audioManager.PlayTheme(true);
     }
 
-    public void Pause()
+    public void PauseButton()
     {
         if (!paused)
         {
             Time.timeScale = 0f;
             pauseWindow.SetActive(true);
-            pauseButton.GetComponent<Image>().sprite = iconsManager.play;
-            audioManager.FadeSound("Theme", 0.1f, 0.1f);
+            pauseButtonImage.sprite = iconsManager.play;
+            audioManager.FadeTheme(0.1f, 0.1f);
         }
         else
         {
             Time.timeScale = 1f;
             pauseWindow.SetActive(false);
-            pauseButton.GetComponent<Image>().sprite = iconsManager.pause;
-            audioManager.FadeSound("Theme", 0.5f, 0.1f);
+            pauseButtonImage.sprite = iconsManager.pause;
+            audioManager.FadeTheme(0.5f, 0.1f);
         }
 
         paused = !paused;
@@ -62,32 +59,26 @@ public class ButtonManager : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("soundOn") == 0)
         {
-            audioManager.TriggerSound("Theme", true);
-            SetSoundIcon(false);
+            audioManager.PlayTheme(true);
+            audioButtonImage.sprite = iconsManager.soundOff;
         }
         else
         {
-            audioManager.TriggerSound("Theme", false);
-            SetSoundIcon(true);
+            audioManager.PlayTheme(false);
+            audioButtonImage.sprite = iconsManager.soundOn;
         }
     }
 
     public void LoadLevel(int sceneIndex)
     {
         fadingManager.LoadLevel(sceneIndex);
-        audioManager.FadeSound("Theme", 0f, 1f);
+        audioManager.FadeTheme(0f, 1f);
     }
 
     public void GameOver()
     {
-        pauseButton.gameObject.SetActive(false);
-
-        gameOverCanvasGroup.gameObject.SetActive(true);
-        gameOverCanvasGroup.DOFade(1f, 1f);
-    }
-
-    public void SetSoundIcon(bool soundOn)
-    {
-        audioButtonImage.sprite = soundOn ? iconsManager.soundOn : iconsManager.soundOff;
+        pauseButtonImage.gameObject.SetActive(false);
+        gameOver.gameObject.SetActive(true);
+        gameOver.DOFade(1f, 1f);
     }
 }

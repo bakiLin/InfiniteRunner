@@ -7,20 +7,17 @@ using YG;
 public class FadingManager : MonoBehaviour
 {
     [SerializeField]
-    private CanvasGroup safeAreaCanvasGroup;
+    private CanvasGroup canvasGroup;
 
     [SerializeField]
     private Image fadeImage;
 
     private void Awake()
     {
-        if (YandexGame.nowFullAd)
-        {
-            Time.timeScale = 0f;
-        }
+        if (YandexGame.nowFullAd) Time.timeScale = 0f;
 
         fadeImage.DOFade(0f, 2f).OnComplete(() => {
-            safeAreaCanvasGroup.interactable = true;
+            canvasGroup.interactable = true;
         });
     }
 
@@ -28,7 +25,7 @@ public class FadingManager : MonoBehaviour
     {
         YandexGame.FullscreenShow();
 
-        safeAreaCanvasGroup.interactable = false;
+        canvasGroup.interactable = false;
 
         fadeImage.DOFade(1f, 1.5f)
             .SetUpdate(true)

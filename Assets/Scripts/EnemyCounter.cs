@@ -12,32 +12,13 @@ public class EnemyCounter : MonoBehaviour
     [Inject]
     private EnemySpeed enemySpeed;
 
-    [Inject]
-    private ScoreSpawner scoreSpawner;
-
     [SerializeField]
-    private TextMeshProUGUI currentScore, bestScore;
+    private TextMeshProUGUI currentScore, bestScore, scoreText;
 
     [SerializeField]
     private RectTransform gameOverWindow;
 
     private int score;
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("enemy"))
-        {
-            score++;
-
-            if (enemySpawner.spawnDelay > 0.4f)
-                enemySpawner.spawnDelay -= 0.02f;
-
-            if (score > 100) enemySpeed.speed += 0.1f;
-            else enemySpeed.speed += 0.3f;
-
-            scoreSpawner.ShowScore("score", score.ToString());
-        }
-    }
 
     private void Awake()
     {
@@ -50,6 +31,21 @@ public class EnemyCounter : MonoBehaviour
         {
             bestScore.transform.parent.gameObject.SetActive(false);
             gameOverWindow.sizeDelta = new Vector2(gameOverWindow.sizeDelta.x, 300f);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("enemy"))
+        {
+            score++;
+            scoreText.text = score.ToString();
+
+            if (enemySpawner.spawnDelay > 0.5f)
+                enemySpawner.spawnDelay -= 0.02f;
+
+            if (score > 100) enemySpeed.speed += 0.1f;
+            else enemySpeed.speed += 0.3f;
         }
     }
 

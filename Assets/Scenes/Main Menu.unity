@@ -789,7 +789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3157483472541429372, guid: caf9732433f4dc044845763962493607, type: 3}
       propertyPath: customEvents.CloseAd.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PlayTheme
+      value: PlayAfterAd
       objectReference: {fileID: 0}
     - target: {fileID: 3157483472541429372, guid: caf9732433f4dc044845763962493607, type: 3}
       propertyPath: customEvents.CloseAd.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -996,9 +996,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1437873574}
   - component: {fileID: 1437873575}
-  - component: {fileID: 1437873576}
   m_Layer: 5
-  m_Name: Button Manager
+  m_Name: Button Group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1036,20 +1035,52 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1437873576
+--- !u!1 &1788088150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1788088152}
+  - component: {fileID: 1788088151}
+  m_Layer: 0
+  m_Name: Fading Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1788088151
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1437873573}
+  m_GameObject: {fileID: 1788088150}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e271dd0a87edd549a99a9794828fb66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safeAreaCanvasGroup: {fileID: 1437873575}
+  canvasGroup: {fileID: 1437873575}
   fadeImage: {fileID: 1852098571}
+--- !u!4 &1788088152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788088150}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1852098569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1208,7 +1239,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1437873576}
+      - m_Target: {fileID: 1788088151}
         m_TargetAssemblyTypeName: FadingManager, Assembly-CSharp
         m_MethodName: LoadLevel
         m_Mode: 3
@@ -1269,7 +1300,7 @@ GameObject:
   - component: {fileID: 2120571401}
   - component: {fileID: 2120571400}
   m_Layer: 0
-  m_Name: Button Click
+  m_Name: Click Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1314,3 +1345,4 @@ SceneRoots:
   - {fileID: 175373231}
   - {fileID: 359323591}
   - {fileID: 2120571401}
+  - {fileID: 1788088152}

@@ -19,9 +19,6 @@ public class Installer : MonoInstaller
     private PlayerInputScript playerInputScript;
 
     [SerializeField]
-    private ScoreSpawner scoreSpawner;
-
-    [SerializeField]
     private ParticleManager particleManager;
 
     [SerializeField]
@@ -47,8 +44,6 @@ public class Installer : MonoInstaller
         Container.Bind<EnemySpawner>().FromInstance(enemySpawner).AsSingle().NonLazy();
 
         Container.Bind<PlayerInputScript>().FromInstance(playerInputScript).AsSingle().NonLazy();
-
-        Container.Bind<ScoreSpawner>().FromInstance(scoreSpawner).AsSingle().NonLazy();
 
         Container.Bind<ParticleManager>().FromInstance(particleManager).AsSingle().NonLazy();
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonClick : MonoBehaviour
+public class ClickManager : MonoBehaviour
 {
     [SerializeField]
     private Button[] buttons;
@@ -14,7 +14,10 @@ public class ButtonClick : MonoBehaviour
 
         foreach (var button in buttons)
         {
-            button.onClick.AddListener(delegate { audioManager.ClickSound(); });
+            button.onClick.AddListener(
+                delegate { 
+                    audioManager.ClickSound(); 
+                });
         }
     }
 }

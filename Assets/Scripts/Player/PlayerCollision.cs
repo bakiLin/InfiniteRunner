@@ -21,9 +21,9 @@ public class PlayerCollision : MonoBehaviour
     [Inject]
     private ButtonManager gameButtonManager;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("enemy"))
+        if (other.CompareTag("enemy"))
         {
             playerInputScript.enabled = false;
             particleManager.ParticlePlay();
@@ -31,7 +31,7 @@ public class PlayerCollision : MonoBehaviour
             enemyCounter.SetFinishResult();
             Destroy(enemyCounter.gameObject);
             enemyCounter.gameObject.SetActive(false);
-            spawnManager.StopSpawn();
+            spawnManager.StopAllCoroutines();
             gameButtonManager.GameOver();
             gameObject.SetActive(false);
         }

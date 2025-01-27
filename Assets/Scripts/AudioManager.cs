@@ -26,9 +26,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private Sound[] sounds;
 
-    private static AudioManager Instance;
-
     private Tween tween;
+
+    private static AudioManager Instance;
 
     private void Awake()
     {
@@ -49,29 +49,37 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void TriggerSound(string name, bool play)
+    public void PlayTheme(bool play)
     {
-        Sound sound = Array.Find(sounds, s => s.name == name);
+        Sound sound = Array.Find(sounds, s => s.name == "Theme");
 
         if (sound != null)
         {
             if (play)
             {
-                sound.audioSource.volume = 0.5f;
+                sound.audioSource.volume = sound.volume;
                 sound.audioSource.Play();
+
                 PlayerPrefs.SetInt("soundOn", 1);
             }
             else
             {
                 sound.audioSource.Stop();
+
                 PlayerPrefs.SetInt("soundOn", 0);
             }
         }
     }
 
-    public void FadeSound(string name, float endValue, float duration)
+    public void PlayAfterAd()
     {
-        Sound sound = Array.Find(sounds, s => s.name == name);
+        if (PlayerPrefs.GetInt("soundOn") != 0)
+            PlayTheme(true);
+    }
+
+    public void FadeTheme(float endValue, float duration)
+    {
+        Sound sound = Array.Find(sounds, s => s.name == "Theme");
 
         if (sound != null)
         {
@@ -83,10 +91,5 @@ public class AudioManager : MonoBehaviour
     public void ClickSound()
     {
         Array.Find(sounds, s => s.name == "Click").audioSource.Play();
-    }
-
-    public void PlayTheme()
-    {
-        TriggerSound("Theme", true);
     }
 }

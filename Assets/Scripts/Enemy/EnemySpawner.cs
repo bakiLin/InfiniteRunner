@@ -1,14 +1,21 @@
 using System.Collections;
 using UnityEngine;
+using Zenject;
+using Random = System.Random;
 
-public class EnemySpawner : SpawnParentScript
+public class EnemySpawner : MonoBehaviour
 {
+    [Inject]
+    private ObjectPooler objectPooler;
+
     [SerializeField]
     private Transform[] enemyPositions;
 
     public float spawnDelay;
 
     private int currentSpawnLine, lastSpawnLine;
+
+    private Random random = new Random();
 
     private void Awake()
     {
@@ -17,8 +24,6 @@ public class EnemySpawner : SpawnParentScript
 
     private IEnumerator EnemySpawnCoroutine()
     {
-        yield return new WaitForSeconds(1f);
-
         while (true)
         {
             while (currentSpawnLine == lastSpawnLine)
@@ -37,12 +42,11 @@ public class EnemySpawner : SpawnParentScript
         if (objectPooler.poolDictionary.ContainsKey(tag))
         {
             GameObject obj = objectPooler.poolDictionary[tag].Dequeue();
-            obj.SetActive(false);
             obj.transform.position = position;
             obj.SetActive(true);
             objectPooler.poolDictionary[tag].Enqueue(obj);
         }
     }
 
-    public void StopSpawn() => StopAllCoroutines();
+    //public void StopSpawn() => StopAllCoroutines();
 }
