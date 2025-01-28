@@ -16,6 +16,10 @@ public class EnemyMovement : MonoBehaviour
 
         tween.Kill();
         tween = transform.DOMove(moveToPosition, enemySpeed.speed)
-            .SetSpeedBased().SetEase(Ease.Linear);
+            .SetSpeedBased().SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                gameObject.SetActive(false);
+            });
     }
 }

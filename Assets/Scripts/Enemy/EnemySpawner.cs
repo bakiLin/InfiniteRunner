@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private Transform[] enemyPositions;
 
-    public float spawnDelay;
+    private float spawnDelay;
 
     private int currentSpawnLine, lastSpawnLine;
 
@@ -24,6 +24,8 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator EnemySpawnCoroutine()
     {
+        yield return new WaitForSeconds(1f);
+
         while (true)
         {
             while (currentSpawnLine == lastSpawnLine)
@@ -48,5 +50,8 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    //public void StopSpawn() => StopAllCoroutines();
+    public void SetDelay(float delay)
+    {
+        spawnDelay = delay;
+    }
 }

@@ -19,7 +19,7 @@ public class PlayerCollision : MonoBehaviour
     private RenderTrail renderTrail;
 
     [Inject]
-    private ButtonManager gameButtonManager;
+    private ButtonManager buttonManager;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -28,11 +28,12 @@ public class PlayerCollision : MonoBehaviour
             playerInputScript.enabled = false;
             particleManager.ParticlePlay();
             renderTrail.MoveTrail();
+
             enemyCounter.SetFinishResult();
-            Destroy(enemyCounter.gameObject);
-            enemyCounter.gameObject.SetActive(false);
+
             spawnManager.StopAllCoroutines();
-            gameButtonManager.GameOver();
+            buttonManager.GameOver();
+
             gameObject.SetActive(false);
         }
     }

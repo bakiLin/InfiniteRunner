@@ -13,10 +13,13 @@ public class EnemyCounter : MonoBehaviour
     private EnemySpeed enemySpeed;
 
     [SerializeField]
-    private TextMeshProUGUI currentScore, bestScore, scoreText;
+    private TextMeshProUGUI finishScore, finishHighscore, currentScore;
 
     [SerializeField]
     private RectTransform gameOverWindow;
+
+    [SerializeField]
+    private float enemyDistance;
 
     private int score;
 
@@ -24,14 +27,16 @@ public class EnemyCounter : MonoBehaviour
     {
         if (YandexGame.auth)
         {
-            bestScore.transform.parent.gameObject.SetActive(true);
+            finishHighscore.transform.parent.gameObject.SetActive(true);
             gameOverWindow.sizeDelta = new Vector2(gameOverWindow.sizeDelta.x, 400f);
         }
         else
         {
-            bestScore.transform.parent.gameObject.SetActive(false);
+            finishHighscore.transform.parent.gameObject.SetActive(false);
             gameOverWindow.sizeDelta = new Vector2(gameOverWindow.sizeDelta.x, 300f);
         }
+
+        enemySpawner.SetDelay(enemyDistance / enemySpeed.speed);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,10 +44,9 @@ public class EnemyCounter : MonoBehaviour
         if (other.CompareTag("enemy"))
         {
             score++;
-            scoreText.text = score.ToString();
+            currentScore.text = score.ToString();
 
-            if (enemySpawner.spawnDelay > 0.5f)
-                enemySpawner.spawnDelay -= 0.02f;
+            enemySpawner.SetDelay(enemyDistance / enemySpeed.speed);
 
             if (score > 100) enemySpeed.speed += 0.1f;
             else enemySpeed.speed += 0.3f;
@@ -61,7 +65,11 @@ public class EnemyCounter : MonoBehaviour
             }
         }
 
+        currentScore.text = "";
+
         GetData();
+
+        Destroy(gameObject);
     }
 
     private void OnEnable() => YandexGame.GetDataEvent += GetData;
@@ -75,13 +83,13 @@ public class EnemyCounter : MonoBehaviour
 
         if (YandexGame.EnvironmentData.language == "ru")
         {
-            currentScore.text = $"—чЄт: {score}";
-            bestScore.text = $"–екорд: {YandexGame.savesData.score}";
+            finishScore.text = $"—чЄт: {score}";
+            finishHighscore.text = $"–екорд: {YandexGame.savesData.score}";
         }
         else
         {
-            currentScore.text = $"Score: {score}";
-            bestScore.text = $"Highscore: {YandexGame.savesData.score}";
+            finishScore.text = $"Score: {score}";
+            finishHighscore.text = $"Highscore: {YandexGame.savesData.score}";
         }
     }
 }

@@ -2738,7 +2738,6 @@ MonoBehaviour:
   - tag: enemy
     prefab: {fileID: 1746831758739565577, guid: dcf2991859d2739438c68fd95525a125, type: 3}
     size: 30
-    parent: {fileID: 0}
 --- !u!1 &1458655313
 GameObject:
   m_ObjectHideFlags: 0
@@ -3172,10 +3171,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b4a0c3b365f7524e99dd6af0f23ab1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentScore: {fileID: 893925087}
-  bestScore: {fileID: 988444798}
-  scoreText: {fileID: 1920777099}
+  finishScore: {fileID: 893925087}
+  finishHighscore: {fileID: 988444798}
+  currentScore: {fileID: 1920777099}
   gameOverWindow: {fileID: 1210536104}
+  enemyDistance: 20
 --- !u!54 &1881899767
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3849,7 +3849,6 @@ MonoBehaviour:
   - {fileID: 1313862061}
   - {fileID: 708918808}
   - {fileID: 1633823665}
-  spawnDelay: 2
 --- !u!199 &5562725063570874378
 ParticleSystemRenderer:
   serializedVersion: 6
