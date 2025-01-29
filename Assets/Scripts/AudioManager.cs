@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -73,7 +74,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayAfterAd()
     {
-        if (PlayerPrefs.GetInt("soundOn") != 0)
+        if (SceneManager.GetActiveScene().buildIndex == 1 && PlayerPrefs.GetInt("soundOn") != 0)
             PlayTheme(true);
     }
 

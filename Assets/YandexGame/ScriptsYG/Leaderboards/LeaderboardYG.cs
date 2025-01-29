@@ -61,7 +61,8 @@ namespace YG
         private UnityEvent onUpdateData;
 
         private string photoSize;
-        private LBPlayerDataYG[] players = new LBPlayerDataYG[0];
+
+        public LBPlayerDataYG[] players = new LBPlayerDataYG[0];
 
         void Start()
         {
