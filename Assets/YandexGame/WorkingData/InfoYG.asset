@@ -337,5 +337,5 @@ MonoBehaviour:
   archivingBuild: 1
   logoImageFormat: 0
   backgroundImageFormat: 1
-  pixelRatioEnable: 1
+  pixelRatioEnable: 0
   pixelRatioValue: 1
